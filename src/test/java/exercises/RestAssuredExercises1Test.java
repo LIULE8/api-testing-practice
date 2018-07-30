@@ -5,10 +5,16 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.path.json.JsonPath.from;
+import static net.bytebuddy.matcher.ElementMatchers.is;
+import static net.bytebuddy.matcher.ElementMatchers.isEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 class RestAssuredExercises1Test {
@@ -81,11 +87,13 @@ class RestAssuredExercises1Test {
 
     @Test
     void checkTheFirstRaceOf2014WasAtAlbertPark() {
-
         given().
                 spec(requestSpec).
-                when().
-                then();
+                when().log().all().get("/2014/1/circuits.json").
+                then().log().all()
+                .body("MRData.CircuitTable.season", equalTo("2014"))
+                .body("MRData.CircuitTable.Circuits[0].circuitId", equalTo("albert_park"));
+
     }
 
     /***********************************************
