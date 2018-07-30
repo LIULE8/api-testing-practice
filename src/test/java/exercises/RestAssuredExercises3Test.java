@@ -48,7 +48,7 @@ class RestAssuredExercises3Test {
 
     private static void createResponseSpecification() {
         responseSpec = new ResponseSpecBuilder()
-                .expectBody("MRData.CircuitTable.Circuits.circuitName[0]", equalTo("Albert Park Grand Prix Circuit"))
+                .expectBody("MRData.CircuitTable.Circuits[0].circuitName", equalTo("Albert Park Grand Prix Circuit"))
                 .expectContentType(ContentType.JSON)
                 .expectStatusCode(HttpStatus.SC_OK).build();
     }
@@ -64,10 +64,10 @@ class RestAssuredExercises3Test {
 
 
     private static void getNinthDriverId() {
-        String json = given().
-                spec(requestSpec).
-                when().get("/2016/drivers.json").toString();
-        ninthDriverId = from(json).get("MRData.DriverTable.Drivers[9].driverId").toString();
+//        String json = given().
+//                spec(requestSpec).
+//                when().get("/2016/drivers.json").toString();
+//        ninthDriverId = from(json).get("MRData.DriverTable.Drivers[9].driverId").toString();
     }
 
     /*******************************************************
@@ -80,11 +80,10 @@ class RestAssuredExercises3Test {
 
     @Test
     public void useResponseSpecification() {
-
         given().
                 spec(requestSpec).
-                when().
-                then();
+                when().log().all().get("/2014/1/circuits.json").
+                then().spec(responseSpec);
     }
 
     /*******************************************************
