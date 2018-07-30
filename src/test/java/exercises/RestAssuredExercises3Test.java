@@ -8,6 +8,8 @@ import io.restassured.specification.ResponseSpecification;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
@@ -63,11 +65,11 @@ class RestAssuredExercises3Test {
     private static String ninthDriverId;
 
 
-    private static void getNinthDriverId() {
-//        String json = given().
-//                spec(requestSpec).
-//                when().get("/2016/drivers.json").toString();
-//        ninthDriverId = from(json).get("MRData.DriverTable.Drivers[9].driverId").toString();
+    static void getNinthDriverId() {
+        String json = given().
+                spec(requestSpec).
+                when().get("/2016/drivers.json").getBody().asString();
+        ninthDriverId = from(json).get("MRData.DriverTable.Drivers[8].driverId").toString();
     }
 
     /*******************************************************
@@ -79,7 +81,7 @@ class RestAssuredExercises3Test {
      ******************************************************/
 
     @Test
-    public void useResponseSpecification() {
+    void useResponseSpecification() {
         given().
                 spec(requestSpec).
                 when().log().all().get("/2014/1/circuits.json").
@@ -94,11 +96,10 @@ class RestAssuredExercises3Test {
      ******************************************************/
 
     @Test
-    public void useExtractedDriverId() {
-
-        given().
+    void useExtractedDriverId() {
+        given().pathParam("id",ninthDriverId).
                 spec(requestSpec).
-                when().
+                when().log().all().get("/drivers/{id}.json").
                 then();
     }
 }
