@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 
 
-public class RestAssuredExercises2Test {
+ class RestAssuredExercises2Test {
 
 	private static RequestSpecification requestSpec;
 
 	@BeforeAll
-	public static void createRequestSpecification() {
+	 static void createRequestSpecification() {
 
 		requestSpec = new RequestSpecBuilder().
 			setBaseUri("http://localhost").
@@ -47,7 +47,7 @@ public class RestAssuredExercises2Test {
 	 ******************************************************/
 	
 	@Test
-	public void checkCountryForCircuit() {
+	 void checkCountryForCircuit() {
 		
 		given().
 			spec(requestSpec).
@@ -63,7 +63,7 @@ public class RestAssuredExercises2Test {
 	 ******************************************************/
 	
 	@Test
-	public void checkNumberOfPitstopsForMaxVerstappenIn2015() {
+	 void checkNumberOfPitstopsForMaxVerstappenIn2015() {
 		
 		given().
 			spec(requestSpec).

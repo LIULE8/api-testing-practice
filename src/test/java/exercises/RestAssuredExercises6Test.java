@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class RestAssuredExercises6Test {
+ class RestAssuredExercises6Test {
 
 	private static RequestSpecification requestSpec;
 
@@ -31,7 +31,7 @@ public class RestAssuredExercises6Test {
 	 ******************************************************/
 
 	@Test
-	public void checkThatPostingA2012FordFocusReturnsHttp200() {
+	 void checkThatPostingA2012FordFocusReturnsHttp200() {
 
 		given().
 			spec(requestSpec).
@@ -48,7 +48,7 @@ public class RestAssuredExercises6Test {
 	 ******************************************************/
 
 	@Test
-	public void checkThatRetrievingAnAlfaRomeoGiuliaShowsModelYear2016() {
+	 void checkThatRetrievingAnAlfaRomeoGiuliaShowsModelYear2016() {
 
 		given().
 			spec(requestSpec).

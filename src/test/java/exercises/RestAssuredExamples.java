@@ -6,7 +6,6 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,7 @@ import static org.hamcrest.core.Is.is;
 
 
 @Tag("demo")
-public class RestAssuredExamples {
+class RestAssuredExamples {
 
     private static String myAuthenticationToken;
 

@@ -2,18 +2,19 @@ package exercises;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 
 
-public class RestAssuredExercises1Test {
+class RestAssuredExercises1Test {
 
     private static RequestSpecification requestSpec;
 
     @BeforeAll
-    public static void createRequestSpecification() {
+    static void createRequestSpecification() {
 
         requestSpec = new RequestSpecBuilder().
                 setBaseUri("http://localhost").
@@ -28,12 +29,12 @@ public class RestAssuredExercises1Test {
      ******************************************************/
 
     @Test
-    public void checkResponseCodeForCorrectRequest() {
-
+    void checkResponseCodeForCorrectRequest() {
         given().
-                spec(requestSpec).
-                when().
-                then();
+                spec(requestSpec)
+                .when().log().uri().get("/2016/drivers.json")
+                .then().log().all().assertThat()
+                .statusCode(HttpStatus.SC_OK);
     }
 
     /*******************************************************
@@ -42,11 +43,11 @@ public class RestAssuredExercises1Test {
      ******************************************************/
 
     @Test
-    public void checkResponseCodeForIncorrectRequest() {
+    void checkResponseCodeForIncorrectRequest() {
 
         given().
                 spec(requestSpec).
-                when().
+                when().log().all().
                 then();
     }
 
@@ -56,7 +57,7 @@ public class RestAssuredExercises1Test {
      ******************************************************/
 
     @Test
-    public void checkResponseContentTypeJson() {
+    void checkResponseContentTypeJson() {
 
         given().
                 spec(requestSpec).
@@ -72,7 +73,7 @@ public class RestAssuredExercises1Test {
      **********************************************/
 
     @Test
-    public void checkTheFirstRaceOf2014WasAtAlbertPark() {
+    void checkTheFirstRaceOf2014WasAtAlbertPark() {
 
         given().
                 spec(requestSpec).
@@ -87,7 +88,7 @@ public class RestAssuredExercises1Test {
      **********************************************/
 
     @Test
-    public void checkThereWasARaceAtSilverstoneIn2014() {
+    void checkThereWasARaceAtSilverstoneIn2014() {
 
         given().
                 spec(requestSpec).
@@ -103,7 +104,7 @@ public class RestAssuredExercises1Test {
      **********************************************/
 
     @Test
-    public void checkThereWasNoRaceAtNurburgringIn2014() {
+    void checkThereWasNoRaceAtNurburgringIn2014() {
 
         given().
                 spec(requestSpec).

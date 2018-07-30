@@ -1,8 +1,6 @@
 package exercises;
 
 
-
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -10,10 +8,10 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 @Tag("demo")
-public class RestAssuredExamplesXml {
+class RestAssuredExamplesXml {
 
     @Test
-    public void checkCountryForFirstCar() {
+    void checkCountryForFirstCar() {
 
         given().
         when().
@@ -24,7 +22,7 @@ public class RestAssuredExamplesXml {
     }
 
     @Test
-    public void checkYearForLastCar() {
+    void checkYearForLastCar() {
 
         given().
         when().
@@ -35,7 +33,7 @@ public class RestAssuredExamplesXml {
     }
 
     @Test
-    public void checkModelForSecondCar() {
+    void checkModelForSecondCar() {
 
         given().
         when().
@@ -46,7 +44,7 @@ public class RestAssuredExamplesXml {
     }
 
     @Test
-    public void checkTheListContainsOneJapaneseCar() {
+    void checkTheListContainsOneJapaneseCar() {
 
         given().
         when().
@@ -57,7 +55,7 @@ public class RestAssuredExamplesXml {
     }
 
     @Test
-    public void checkTheListContainsTwoCarsWhoseMakeStartsWithAnA() {
+    void checkTheListContainsTwoCarsWhoseMakeStartsWithAnA() {
 
         given().
         when().

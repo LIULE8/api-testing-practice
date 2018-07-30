@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class RestAssuredExercises4Test {
+ class RestAssuredExercises4Test {
 
     private static RequestSpecification requestSpec;
 
@@ -40,7 +40,7 @@ public class RestAssuredExercises4Test {
 
     private static String accessToken;
 
-    public static void retrieveOAuthToken() {
+     static void retrieveOAuthToken() {
 
     }
 
@@ -54,7 +54,7 @@ public class RestAssuredExercises4Test {
      ******************************************************/
 
     @Test
-    public void checkNumberOfPayments() {
+     void checkNumberOfPayments() {
 
         given().
                 spec(requestSpec).
@@ -70,7 +70,7 @@ public class RestAssuredExercises4Test {
      ******************************************************/
 
     @Test
-    public void checkResponseTimeFor2014CircuitList() {
+     void checkResponseTimeFor2014CircuitList() {
 
         given().
                 spec(requestSpec).

@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class RestAssuredExercises5Test {
+ class RestAssuredExercises5Test {
 
 	private static RequestSpecification requestSpec;
 
 	@BeforeAll
-	public static void createRequestSpecification() {
+	 static void createRequestSpecification() {
 
 		requestSpec = new RequestSpecBuilder().
 			setBaseUri("http://localhost").
@@ -28,7 +28,7 @@ public class RestAssuredExercises5Test {
 	 ******************************************************/
 	
 	@Test
-	public void checkThirdSpeedRecordWasSetIn1955() {
+	 void checkThirdSpeedRecordWasSetIn1955() {
 		
 		given().
 			spec(requestSpec).
@@ -44,7 +44,7 @@ public class RestAssuredExercises5Test {
 	 ******************************************************/
 	
 	@Test
-	public void checkFourthSpeedRecordWasSetbyAnAstonMartin() {
+	 void checkFourthSpeedRecordWasSetbyAnAstonMartin() {
 		
 		given().
 			spec(requestSpec).
@@ -60,7 +60,7 @@ public class RestAssuredExercises5Test {
 	 ******************************************************/
 	
 	@Test
-	public void checkThreeRecordsHaveBeenSetByCarsFromTheUK() {
+	 void checkThreeRecordsHaveBeenSetByCarsFromTheUK() {
 		
 		given().
 			spec(requestSpec).
@@ -76,7 +76,7 @@ public class RestAssuredExercises5Test {
 	 ******************************************************/
 	
 	@Test
-	public void checkFourRecordsHaveBeenSetByCarsFromEitherItalyOrGermany() {
+	 void checkFourRecordsHaveBeenSetByCarsFromEitherItalyOrGermany() {
 		
 		given().
 			spec(requestSpec).
@@ -92,7 +92,7 @@ public class RestAssuredExercises5Test {
 	 ******************************************************/
 	
 	@Test
-	public void checkTwoRecordsHaveBeenSetByCarsWhoseMakeEndOnBenz() {
+	 void checkTwoRecordsHaveBeenSetByCarsWhoseMakeEndOnBenz() {
 		
 		given().
 			spec(requestSpec).
