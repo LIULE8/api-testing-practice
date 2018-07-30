@@ -34,6 +34,7 @@ class RestAssuredExercises2Test {
      * a specific circuit can be found (specify that Monza
      * is in Italy, for example)
      ******************************************************/
+
     private static Stream<Arguments> circuitIdAndCountry() {
         return Stream.of(
                 Arguments.of("monza", "Italy")
