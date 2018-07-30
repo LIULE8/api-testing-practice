@@ -5,12 +5,14 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.path.json.JsonPath.from;
 
- class RestAssuredExercises6Test {
+class RestAssuredExercises6Test {
 
 	private static RequestSpecification requestSpec;
 
@@ -52,10 +54,11 @@ import static io.restassured.RestAssured.given;
 	@Test
 	 void checkThatRetrievingAnAlfaRomeoGiuliaShowsModelYear2016() {
 
-		given().
-			spec(requestSpec).
-		when().log().all().get("/cars/getcar/alfaromeogiulia");
-
+		String json = given().
+				spec(requestSpec).
+				when().log().all().get("/car/getcar/alfaromeogiulia").asString();
+		String year = from(json).get("year").toString();
 		// Put your assert here
+		Assertions.assertEquals("2016",year);
 	}
 }
