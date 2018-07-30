@@ -1,13 +1,16 @@
 package exercises;
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.path.json.JsonPath.from;
 
- class RestAssuredExercises4Test {
+class RestAssuredExercises4Test {
 
     private static RequestSpecification requestSpec;
 
@@ -40,7 +43,15 @@ import static io.restassured.RestAssured.given;
 
     private static String accessToken;
 
-     static void retrieveOAuthToken() {
+    static void retrieveOAuthToken() {
+        String basicAuth = given().spec(requestSpec)
+                .params("basicAuth", "{\n" +
+                        "      \"username\": \"oauth\",\n" +
+                        "      \"password\": \"gimmeatoken\"\n" +
+                        "    }")
+                .when().log().all()
+                .get("/oauth2/token").getBody().asString();
+        accessToken = from(basicAuth).get("access_token").toString();
 
     }
 
@@ -54,8 +65,7 @@ import static io.restassured.RestAssured.given;
      ******************************************************/
 
     @Test
-     void checkNumberOfPayments() {
-
+    void checkNumberOfPayments() {
         given().
                 spec(requestSpec).
                 when().
@@ -70,7 +80,7 @@ import static io.restassured.RestAssured.given;
      ******************************************************/
 
     @Test
-     void checkResponseTimeFor2014CircuitList() {
+    void checkResponseTimeFor2014CircuitList() {
 
         given().
                 spec(requestSpec).
