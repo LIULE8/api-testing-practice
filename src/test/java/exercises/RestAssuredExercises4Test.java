@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 class RestAssuredExercises4Test {
 
@@ -43,14 +44,14 @@ class RestAssuredExercises4Test {
 
     private static String accessToken;
 
-    static void retrieveOAuthToken() {
+    static  void retrieveOAuthToken() {
         String basicAuth = given().spec(requestSpec)
-                .params("basicAuth", "{\n" +
-                        "      \"username\": \"oauth\",\n" +
-                        "      \"password\": \"gimmeatoken\"\n" +
-                        "    }")
+                 .auth().
+                preemptive().
+                basic("oauth", "gimmeatoken")
                 .when().log().all()
                 .get("/oauth2/token").getBody().asString();
+        System.out.println(basicAuth);
         accessToken = from(basicAuth).get("access_token").toString();
 
     }
@@ -67,9 +68,10 @@ class RestAssuredExercises4Test {
     @Test
     void checkNumberOfPayments() {
         given().
-                spec(requestSpec).
-                when().
-                then();
+                spec(requestSpec).auth().
+                oauth2(accessToken).
+                when().log().all().get("/payments").
+                then().log().all().body("paymentsCount",equalTo(4));
     }
 
     /*******************************************************
@@ -81,7 +83,6 @@ class RestAssuredExercises4Test {
 
     @Test
     void checkResponseTimeFor2014CircuitList() {
-
         given().
                 spec(requestSpec).
                 when().
