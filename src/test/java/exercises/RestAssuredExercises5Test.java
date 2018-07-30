@@ -1,13 +1,17 @@
 package exercises;
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.path.xml.XmlPath;
 import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.sessionId;
+import static io.restassured.path.json.JsonPath.from;
 
- class RestAssuredExercises5Test {
+class RestAssuredExercises5Test {
 
 	private static RequestSpecification requestSpec;
 
@@ -29,11 +33,13 @@ import static io.restassured.RestAssured.given;
 	
 	@Test
 	 void checkThirdSpeedRecordWasSetIn1955() {
-		
-		given().
-			spec(requestSpec).
-		when().
-		then();
+		String json = given().
+				spec(requestSpec).
+				when().log().all().get("/xml/speedrecords").getBody().asString();
+		XmlPath xmlPath = new XmlPath(XmlPath.CompatibilityMode.HTML, json);
+		String year = xmlPath.getString("speedRecords.car[2].year");// will return "mytitle"
+		Assertions.assertEquals("1955", year);
+
 	}
 	
 	/*******************************************************
