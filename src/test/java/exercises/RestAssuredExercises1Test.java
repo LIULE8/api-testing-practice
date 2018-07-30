@@ -13,6 +13,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
 import static net.bytebuddy.matcher.ElementMatchers.is;
 import static net.bytebuddy.matcher.ElementMatchers.isEquals;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -91,6 +92,8 @@ class RestAssuredExercises1Test {
                 spec(requestSpec).
                 when().log().all().get("/2014/1/circuits.json").
                 then().log().all()
+                .statusCode(HttpStatus.SC_OK)
+                .contentType(ContentType.JSON)
                 .body("MRData.CircuitTable.season", equalTo("2014"))
                 .body("MRData.CircuitTable.Circuits[0].circuitId", equalTo("albert_park"));
 
@@ -104,11 +107,12 @@ class RestAssuredExercises1Test {
 
     @Test
     void checkThereWasARaceAtSilverstoneIn2014() {
-
         given().
                 spec(requestSpec).
-                when().
-                then();
+                when().log().all().get("/2014/circuits.json").
+                then().log().all().contentType(ContentType.JSON)
+        .statusCode(HttpStatus.SC_OK)
+        .body(containsString("silverstone"));
     }
 
     /***********************************************
