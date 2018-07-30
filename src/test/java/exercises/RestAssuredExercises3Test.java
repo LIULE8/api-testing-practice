@@ -1,26 +1,30 @@
 package exercises;
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.equalTo;
 
-public class RestAssuredExercises3Test {
+class RestAssuredExercises3Test {
 
     private static RequestSpecification requestSpec;
 
     @BeforeAll
-    public static void setUp() {
+    static void setUp() {
 
         createRequestSpecification();
         createResponseSpecification();
         getNinthDriverId();
     }
 
-    static void createRequestSpecification() {
+    private static void createRequestSpecification() {
 
         requestSpec = new RequestSpecBuilder().
                 setBaseUri("http://localhost").
@@ -41,9 +45,11 @@ public class RestAssuredExercises3Test {
     private static ResponseSpecification responseSpec;
 
 
-    static void createResponseSpecification() {
-
-
+    private static void createResponseSpecification() {
+        responseSpec = new ResponseSpecBuilder()
+                .expectBody("MRData.CircuitTable.Circuits.circuitName[0]", equalTo("Albert Park Grand Prix Circuit"))
+                .expectContentType(ContentType.JSON)
+                .expectStatusCode(HttpStatus.SC_OK).build();
     }
 
     /*******************************************************
@@ -56,7 +62,7 @@ public class RestAssuredExercises3Test {
     private static String ninthDriverId;
 
 
-    static void getNinthDriverId() {
+    private static void getNinthDriverId() {
 
 
     }
