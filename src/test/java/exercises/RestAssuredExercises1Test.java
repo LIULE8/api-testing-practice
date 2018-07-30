@@ -11,11 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
+import static net.bytebuddy.matcher.ElementMatchers.failSafe;
 import static net.bytebuddy.matcher.ElementMatchers.is;
 import static net.bytebuddy.matcher.ElementMatchers.isEquals;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 class RestAssuredExercises1Test {
@@ -95,7 +96,7 @@ class RestAssuredExercises1Test {
                 .statusCode(HttpStatus.SC_OK)
                 .contentType(ContentType.JSON)
                 .body("MRData.CircuitTable.season", equalTo("2014"))
-                .body("MRData.CircuitTable.Circuits[0].circuitId", equalTo("albert_park"));
+                .body("MRData.CircuitTable.Circuits.circuitId", hasItems("albert_park"));
 
     }
 
@@ -111,8 +112,8 @@ class RestAssuredExercises1Test {
                 spec(requestSpec).
                 when().log().all().get("/2014/circuits.json").
                 then().log().all().contentType(ContentType.JSON)
-        .statusCode(HttpStatus.SC_OK)
-        .body(containsString("silverstone"));
+                .statusCode(HttpStatus.SC_OK)
+                .body(containsString("silverstone"));
     }
 
     /***********************************************
@@ -124,11 +125,11 @@ class RestAssuredExercises1Test {
 
     @Test
     void checkThereWasNoRaceAtNurburgringIn2014() {
-
         given().
                 spec(requestSpec).
-                when().
-
-                then();
+                when().log().all().get("/2014/circuits.json").
+                then().log().all().contentType(ContentType.JSON)
+                .statusCode(HttpStatus.SC_OK)
+                .body(not(containsString("nurburgring")));
     }
 }
