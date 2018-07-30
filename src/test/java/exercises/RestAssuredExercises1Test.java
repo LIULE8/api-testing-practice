@@ -1,6 +1,8 @@
 package exercises;
 
+
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
@@ -49,8 +51,8 @@ class RestAssuredExercises1Test {
                 spec(requestSpec).
                 when().log().all().get("/incorrect.json")
                 .then()
-        .assertThat()
-        .statusCode(HttpStatus.SC_NOT_FOUND);
+                .assertThat()
+                .statusCode(HttpStatus.SC_NOT_FOUND);
     }
 
     /*******************************************************
@@ -63,8 +65,11 @@ class RestAssuredExercises1Test {
 
         given().
                 spec(requestSpec).
-                when().
-                then();
+                when().log().all().get("/2016/drivers.json")
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(HttpStatus.SC_OK);
     }
 
     /***********************************************
