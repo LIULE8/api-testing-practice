@@ -47,8 +47,10 @@ class RestAssuredExercises1Test {
 
         given().
                 spec(requestSpec).
-                when().log().all().
-                then();
+                when().log().all().get("/incorrect.json")
+                .then()
+        .assertThat()
+        .statusCode(HttpStatus.SC_NOT_FOUND);
     }
 
     /*******************************************************
