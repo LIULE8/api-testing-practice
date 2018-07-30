@@ -1,8 +1,10 @@
 package exercises;
 
+import dataentities.Car;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -34,9 +36,9 @@ import static io.restassured.RestAssured.given;
 	 void checkThatPostingA2012FordFocusReturnsHttp200() {
 
 		given().
-			spec(requestSpec).
-		when().
-		then();
+			spec(requestSpec).body(new Car("Ford","Focus",2012)).
+		when().post("/car/postcar").
+		then().log().all().statusCode(HttpStatus.SC_OK);
 	}
 
 	/*******************************************************
@@ -52,7 +54,7 @@ import static io.restassured.RestAssured.given;
 
 		given().
 			spec(requestSpec).
-		when();
+		when().log().all().get("/cars/getcar/alfaromeogiulia");
 
 		// Put your assert here
 	}
